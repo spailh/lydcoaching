@@ -178,6 +178,43 @@
     }
     .sound-art svg { width: 100%; height: 100%; }
 
+    /* Hero image */
+    .hero-image {
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(45,53,97,0.2);
+      object-fit: cover;
+    }
+
+    /* Section images */
+    .section-image {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(45,53,97,0.15);
+      object-fit: cover;
+    }
+    .section-image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 2rem;
+    }
+    .why-image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .process-image-container {
+      margin-top: 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
     /* floating notes */
     .note {
       position: absolute;
@@ -260,6 +297,10 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1.2rem;
+    }
+    .why-image-wrapper {
+      grid-column: 1 / -1;
+      margin-top: 2rem;
     }
     .why-card {
       background: #fff;
@@ -395,11 +436,22 @@
       padding: 2rem;
       box-shadow: 0 4px 24px rgba(45,53,97,0.07);
       text-align: left;
+      display: flex;
+      flex-direction: column;
     }
     .testi-card .stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 1rem; }
-    .testi-card p { font-size: 0.92rem; line-height: 1.75; color: #555; font-style: italic; font-weight: 300; margin-bottom: 1.2rem; }
+    .testi-card p { font-size: 0.92rem; line-height: 1.75; color: #555; font-style: italic; font-weight: 300; margin-bottom: 1.2rem; flex-grow: 1; }
     .testi-card .author { font-weight: 500; font-size: 0.85rem; color: var(--indigo); }
     .testi-card .role { font-size: 0.78rem; color: #999; }
+    .testi-card .testi-image {
+      width: 100%;
+      max-width: 100%;
+      height: 200px;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(45,53,97,0.1);
+    }
 
     /* ── CTA BAND ── */
     .cta-band {
@@ -472,7 +524,8 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; padding-top: 6rem; text-align: center; }
-      .hero-visual { display: none; }
+      .hero-visual { display: flex; margin-top: 2rem; }
+      .hero-image { max-width: 300px; }
       .why { grid-template-columns: 1fr; gap: 2rem; }
       .offerings-grid { grid-template-columns: 1fr 1fr; }
       .audience-grid { grid-template-columns: 1fr 1fr; }
@@ -480,6 +533,7 @@
       .steps { flex-direction: column; gap: 2rem; }
       .steps::before { display: none; }
       nav ul { display: none; }
+      .section-image { max-width: 100%; }
     }
     @media (max-width: 600px) {
       section { padding: 4rem 1.5rem; }
@@ -527,64 +581,7 @@
   </div>
 
   <div class="hero-visual">
-    <div class="sound-art">
-      <div class="note">♩</div>
-      <div class="note">♪</div>
-      <div class="note">♫</div>
-      <div class="note">♬</div>
-      <svg viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="bg" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#FDF6EE"/>
-            <stop offset="100%" stop-color="#F9EFE4"/>
-          </radialGradient>
-        </defs>
-        <circle cx="210" cy="210" r="200" fill="url(#bg)" stroke="#e0d8d0" stroke-width="1"/>
-        <!-- Sound wave bars -->
-        <g transform="translate(70, 210)">
-          <rect x="0"   y="-20"  width="18" height="40"  rx="9" fill="#E8614A" opacity="0.8">
-            <animate attributeName="height" values="40;80;30;60;40" dur="2s" repeatCount="indefinite"/>
-            <animate attributeName="y" values="-20;-40;-15;-30;-20" dur="2s" repeatCount="indefinite"/>
-          </rect>
-          <rect x="26"  y="-40"  width="18" height="80"  rx="9" fill="#F2A84B" opacity="0.8">
-            <animate attributeName="height" values="80;40;100;50;80" dur="2.5s" repeatCount="indefinite"/>
-            <animate attributeName="y" values="-40;-20;-50;-25;-40" dur="2.5s" repeatCount="indefinite"/>
-          </rect>
-          <rect x="52"  y="-60"  width="18" height="120" rx="9" fill="#3ABCB1" opacity="0.8">
-            <animate attributeName="height" values="120;60;90;140;120" dur="1.8s" repeatCount="indefinite"/>
-            <animate attributeName="y" values="-60;-30;-45;-70;-60" dur="1.8s" repeatCount="indefinite"/>
-          </rect>
-          <rect x="78"  y="-35"  width="18" height="70"  rx="9" fill="#2D3561" opacity="0.8">
-            <animate attributeName="height" values="70;110;50;80;70" dur="2.2s" repeatCount="indefinite"/>
-            <animate attributeName="y" values="-35;-55;-25;-40;-35" dur="2.2s" repeatCount="indefinite"/>
-          </rect>
-          <rect x="104" y="-50"  width="18" height="100" rx="9" fill="#E8614A" opacity="0.8">
-            <animate attributeName="height" values="100;50;130;70;100" dur="1.6s" repeatCount="indefinite"/>
-            <animate attributeName="y" values="-50;-25;-65;-35;-50" dur="1.6s" repeatCount="indefinite"/>
-          </rect>
-          <rect x="130" y="-30"  width="18" height="60"  rx="9" fill="#F2A84B" opacity="0.8">
-            <animate attributeName="height" values="60;100;40;80;60" dur="2.8s" repeatCount="indefinite"/>
-            <animate attributeName="y" values="-30;-50;-20;-40;-30" dur="2.8s" repeatCount="indefinite"/>
-          </rect>
-          <rect x="156" y="-45"  width="18" height="90"  rx="9" fill="#3ABCB1" opacity="0.8">
-            <animate attributeName="height" values="90;40;110;60;90" dur="2s" repeatCount="indefinite"/>
-            <animate attributeName="y" values="-45;-20;-55;-30;-45" dur="2s" repeatCount="indefinite"/>
-          </rect>
-          <rect x="182" y="-25"  width="18" height="50"  rx="9" fill="#2D3561" opacity="0.8">
-            <animate attributeName="height" values="50;90;35;70;50" dur="2.4s" repeatCount="indefinite"/>
-            <animate attributeName="y" values="-25;-45;-17;-35;-25" dur="2.4s" repeatCount="indefinite"/>
-          </rect>
-        </g>
-        <!-- musical staff lines decorative -->
-        <g opacity="0.1" stroke="#2D3561" stroke-width="1">
-          <line x1="40" y1="310" x2="380" y2="310"/>
-          <line x1="40" y1="322" x2="380" y2="322"/>
-          <line x1="40" y1="334" x2="380" y2="334"/>
-          <line x1="40" y1="346" x2="380" y2="346"/>
-          <line x1="40" y1="358" x2="380" y2="358"/>
-        </g>
-      </svg>
-    </div>
+    <img src="assets/lydwine-portrait-1.png" alt="Lydwine - Coach en éveil musical" class="hero-image" />
   </div>
 </section>
 
@@ -631,6 +628,11 @@
         <div class="icon">🌱</div>
         <h3>Épanouissement</h3>
         <p>Se sentir capable de créer quelque chose de beau — un ancrage profond de confiance en soi.</p>
+      </div>
+    </div>
+    <div class="why-image-wrapper">
+      <div class="why-image-container">
+        <img src="assets/instruments-collection.png" alt="Collection d'instruments de musique pour l'éveil musical" class="section-image" />
       </div>
     </div>
   </div>
@@ -709,6 +711,9 @@
         <p>Retour réflexif sur l'expérience. Outils et rituels à emporter dans sa vie quotidienne et professionnelle.</p>
       </div>
     </div>
+    <div class="process-image-container">
+      <img src="assets/atelier-espace.png" alt="Espace d'atelier musical avec instruments et tapis" class="section-image" />
+    </div>
   </div>
 </section>
 
@@ -759,6 +764,7 @@
     <h2>Ce qu'ils en <em>disent</em></h2>
     <div class="testi-grid">
       <div class="testi-card">
+        <img src="assets/lydwine-portrait-2.png" alt="Expérience joyeuse en atelier" class="testi-image" />
         <div class="stars">★★★★★</div>
         <p>« Je suis arrivée convaincue de ne pas avoir une once de musicalité. Je suis repartie avec la certitude que j'avais quelque chose à dire. Une révélation. »</p>
         <div class="author">Sophie M.</div>
@@ -771,6 +777,7 @@
         <div class="role">DG, PME 80 personnes</div>
       </div>
       <div class="testi-card">
+        <img src="assets/lydwine-portrait-3.png" alt="Lydwine en atelier" class="testi-image" />
         <div class="stars">★★★★★</div>
         <p>« J'étais en burnout sévère. La formation de Lydwine m'a redonné accès à une part de moi que je croyais perdue. La musique m'a littéralement sauvée. »</p>
         <div class="author">Amandine R.</div>
