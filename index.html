@@ -1,19 +1,819 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lydwine Coaching</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lydwine Coaching – L'Éveil par la Musique</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --coral: #E8614A;
+      --gold: #F2A84B;
+      --teal: #3ABCB1;
+      --indigo: #2D3561;
+      --cream: #FDF6EE;
+      --dark: #1A1A2E;
+      --soft: #F9EFE4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(253,246,238,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(232,97,74,0.15);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--coral);
+      letter-spacing: 0.02em;
+    }
+    .nav-logo span { font-style: italic; color: var(--indigo); }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul a {
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--indigo);
+      transition: color 0.2s;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    nav ul a:hover { color: var(--coral); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 3rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 75% 30%, rgba(58,188,177,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 20% 70%, rgba(242,168,75,0.15) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 90% 80%, rgba(232,97,74,0.12) 0%, transparent 60%);
+    }
+
+    /* animated sound waves in background */
+    .waves-bg {
+      position: absolute; right: -80px; top: 50%; transform: translateY(-50%);
+      width: 700px; height: 700px; z-index: 0; opacity: 0.08;
+    }
+    .waves-bg circle {
+      fill: none;
+      stroke: var(--coral);
+      stroke-width: 1.5;
+      transform-origin: center;
+      animation: pulse 4s ease-in-out infinite;
+    }
+    .waves-bg circle:nth-child(1) { r: 100; animation-delay: 0s; }
+    .waves-bg circle:nth-child(2) { r: 180; animation-delay: 0.4s; }
+    .waves-bg circle:nth-child(3) { r: 260; animation-delay: 0.8s; }
+    .waves-bg circle:nth-child(4) { r: 340; animation-delay: 1.2s; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.04); }
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 560px; }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--coral);
+      color: #fff;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      line-height: 1.1;
+      color: var(--indigo);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.7s 0.15s ease both;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--coral);
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      line-height: 1.75;
+      color: #555;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .hero-ctas {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fadeUp 0.7s 0.45s ease both;
+    }
+
+    .btn-primary {
+      background: var(--coral);
+      color: #fff;
+      padding: 1rem 2.2rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(232,97,74,0.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(232,97,74,0.45); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--indigo);
+      padding: 1rem 2.2rem;
+      border: 2px solid var(--indigo);
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover { background: var(--indigo); color: #fff; }
+
+    .hero-visual {
+      position: relative; z-index: 1;
+      display: flex; justify-content: center; align-items: center;
+    }
+
+    /* Instrument illustration – abstract musical composition */
+    .sound-art {
+      width: 420px; height: 420px; position: relative;
+    }
+    .sound-art svg { width: 100%; height: 100%; }
+
+    /* Hero image */
+    .hero-image {
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(45,53,97,0.2);
+      object-fit: cover;
+    }
+
+    /* Section images */
+    .section-image {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(45,53,97,0.15);
+      object-fit: cover;
+    }
+    .section-image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 2rem;
+    }
+    .why-image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .process-image-container {
+      margin-top: 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* floating notes */
+    .note {
+      position: absolute;
+      font-size: 2rem;
+      animation: floatNote 6s ease-in-out infinite;
+      opacity: 0.7;
+    }
+    .note:nth-child(1) { top: 5%; left: 15%; animation-delay: 0s; color: var(--coral); }
+    .note:nth-child(2) { top: 20%; right: 10%; animation-delay: 1s; color: var(--teal); }
+    .note:nth-child(3) { bottom: 20%; left: 5%; animation-delay: 2s; color: var(--gold); }
+    .note:nth-child(4) { bottom: 5%; right: 20%; animation-delay: 1.5s; color: var(--indigo); }
+
+    @keyframes floatNote {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50% { transform: translateY(-18px) rotate(5deg); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── MANIFESTO BAND ── */
+    .manifesto {
+      background: var(--indigo);
+      padding: 4rem 3rem;
+      text-align: center;
+    }
+    .manifesto blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: var(--cream);
+      font-style: italic;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .manifesto blockquote strong {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 6rem 3rem; }
+    .section-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--coral);
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      color: var(--indigo);
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+    h2 em { font-style: italic; color: var(--coral); }
+
+    /* ── WHY MUSIC ── */
+    .why {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .why-text p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #555;
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+    .why-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+    .why-image-wrapper {
+      grid-column: 1 / -1;
+      margin-top: 2rem;
+    }
+    .why-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 24px rgba(45,53,97,0.07);
+      transition: transform 0.25s, box-shadow 0.25s;
+      border-top: 3px solid transparent;
+    }
+    .why-card:nth-child(1) { border-color: var(--coral); }
+    .why-card:nth-child(2) { border-color: var(--teal); }
+    .why-card:nth-child(3) { border-color: var(--gold); }
+    .why-card:nth-child(4) { border-color: var(--indigo); }
+    .why-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(45,53,97,0.12); }
+    .why-card .icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
+    .why-card h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--indigo); margin-bottom: 0.4rem; }
+    .why-card p { font-size: 0.88rem; line-height: 1.6; color: #777; font-weight: 300; }
+
+    /* ── OFFERINGS ── */
+    .offerings-bg { background: var(--soft); }
+    .offerings-inner { max-width: 1200px; margin: 0 auto; }
+    .offerings-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .offer-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(45,53,97,0.06);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .offer-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(45,53,97,0.12); }
+    .offer-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    }
+    .offer-card:nth-child(1)::before { background: linear-gradient(90deg, var(--coral), var(--gold)); }
+    .offer-card:nth-child(2)::before { background: linear-gradient(90deg, var(--teal), var(--indigo)); }
+    .offer-card:nth-child(3)::before { background: linear-gradient(90deg, var(--gold), var(--coral)); }
+    .offer-card:nth-child(4)::before { background: linear-gradient(90deg, var(--indigo), var(--teal)); }
+    .offer-card:nth-child(5)::before { background: linear-gradient(90deg, var(--coral), var(--teal)); }
+    .offer-card:nth-child(6)::before { background: linear-gradient(90deg, var(--gold), var(--indigo)); }
+    .offer-emoji { font-size: 2.5rem; margin-bottom: 1rem; }
+    .offer-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--indigo); margin-bottom: 0.8rem; }
+    .offer-card p { font-size: 0.9rem; line-height: 1.7; color: #666; font-weight: 300; }
+    .offer-tag {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      background: var(--soft);
+      color: var(--indigo);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .process-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+    .steps {
+      display: flex; gap: 0; margin-top: 3rem;
+      position: relative;
+    }
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 36px; left: 10%; right: 10%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--coral), var(--teal), var(--gold));
+    }
+    .step {
+      flex: 1;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 0 1rem;
+    }
+    .step-num {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: #fff;
+      margin-bottom: 1.5rem;
+      position: relative; z-index: 1;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    .step:nth-child(1) .step-num { background: var(--coral); }
+    .step:nth-child(2) .step-num { background: var(--teal); }
+    .step:nth-child(3) .step-num { background: var(--gold); }
+    .step:nth-child(4) .step-num { background: var(--indigo); }
+    .step h3 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--indigo); margin-bottom: 0.5rem; }
+    .step p { font-size: 0.85rem; line-height: 1.6; color: #777; font-weight: 300; }
+
+    /* ── AUDIENCES ── */
+    .audiences-bg { background: var(--indigo); }
+    .audiences-inner { max-width: 1200px; margin: 0 auto; }
+    .audiences-inner h2 { color: var(--cream); }
+    .audiences-inner h2 em { color: var(--gold); }
+    .audiences-inner .section-label { color: var(--gold); }
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      margin-top: 3rem;
+    }
+    .audience-card {
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 16px;
+      padding: 1.8rem;
+      transition: background 0.2s;
+    }
+    .audience-card:hover { background: rgba(255,255,255,0.07); }
+    .audience-card .icon { font-size: 2rem; margin-bottom: 0.8rem; }
+    .audience-card h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--gold); margin-bottom: 0.5rem; }
+    .audience-card p { font-size: 0.88rem; line-height: 1.6; color: rgba(255,255,255,0.7); font-weight: 300; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .testi-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 4px 24px rgba(45,53,97,0.07);
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+    }
+    .testi-card .stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 1rem; }
+    .testi-card p { font-size: 0.92rem; line-height: 1.75; color: #555; font-style: italic; font-weight: 300; margin-bottom: 1.2rem; flex-grow: 1; }
+    .testi-card .author { font-weight: 500; font-size: 0.85rem; color: var(--indigo); }
+    .testi-card .role { font-size: 0.78rem; color: #999; }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: linear-gradient(135deg, var(--coral) 0%, var(--gold) 100%);
+      padding: 5rem 3rem;
+      text-align: center;
+    }
+    .cta-band h2 {
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 1rem;
+    }
+    .cta-band p { color: rgba(255,255,255,0.9); font-size: 1.1rem; margin-bottom: 2rem; font-weight: 300; }
+    .btn-white {
+      background: #fff;
+      color: var(--coral);
+      padding: 1.1rem 2.8rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.15);
+      display: inline-block;
+    }
+    .btn-white:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(0,0,0,0.2); }
+
+    /* ── CONTACT ── */
+    .contact-inner { max-width: 650px; margin: 0 auto; text-align: center; }
+    .contact-form {
+      display: flex; flex-direction: column; gap: 1rem;
+      margin-top: 2.5rem; text-align: left;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+      padding: 0.9rem 1.2rem;
+      border: 1.5px solid #e0d8d0;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--dark);
+      background: #fff;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .contact-form input:focus,
+    .contact-form select:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--coral);
+    }
+    .contact-form textarea { resize: vertical; min-height: 120px; }
+    .contact-form .btn-primary { align-self: center; width: 100%; text-align: center; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.85rem;
+    }
+    footer strong { color: var(--coral); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding-top: 6rem; text-align: center; }
+      .hero-visual { display: flex; margin-top: 2rem; }
+      .hero-image { max-width: 300px; }
+      .why { grid-template-columns: 1fr; gap: 2rem; }
+      .offerings-grid { grid-template-columns: 1fr 1fr; }
+      .audience-grid { grid-template-columns: 1fr 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .steps { flex-direction: column; gap: 2rem; }
+      .steps::before { display: none; }
+      nav ul { display: none; }
+      .section-image { max-width: 100%; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 4rem 1.5rem; }
+      .offerings-grid, .audience-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="#" class="nav-logo">Lydwine <span>Coaching</span></a>
-        </nav>
-    </header>
-    <main>
-        <h1>Welcome to Lydwine Coaching</h1>
-        <!-- Other content goes here -->
-    </main>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Lydwine <span>Coaching</span></div>
+  <ul>
+    <li><a href="#pourquoi">Pourquoi</a></li>
+    <li><a href="#offres">Offres</a></li>
+    <li><a href="#public">Public</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <svg class="waves-bg" viewBox="0 0 700 700">
+    <circle cx="350" cy="350" r="100"/>
+    <circle cx="350" cy="350" r="180"/>
+    <circle cx="350" cy="350" r="260"/>
+    <circle cx="350" cy="350" r="340"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-tag">🎵 Éveil Musical · Coaching Créatif</div>
+    <h1>
+      Réveillez la <em>créativité</em><br/>
+      qui sommeille en vous
+    </h1>
+    <p>
+      Pas besoin de savoir jouer d'un instrument. La musique est un langage universel — celui de l'émotion, du lâcher-prise et de la liberté. Avec Lydwine, vivez une expérience transformatrice qui réconcilie votre quotidien avec votre nature créative.
+    </p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-primary">Réserver une session</a>
+      <a href="#offres" class="btn-secondary">Découvrir les offres</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <img src="assets/lydwine-portrait-2.png" alt="Lydwine - Coach en éveil musical" class="hero-image" />
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<div class="manifesto">
+  <blockquote>
+    « La créativité n'est pas un talent réservé à quelques-uns. C'est un <strong>droit humain fondamental</strong> — et la musique est la clé pour le retrouver. »
+  </blockquote>
+</div>
+
+<!-- WHY MUSIC -->
+<section id="pourquoi">
+  <div class="why">
+    <div class="why-text">
+      <span class="section-label">Pourquoi la musique ?</span>
+      <h2>La création sonore<br/>comme <em>levier de transformation</em></h2>
+      <p>
+        Dans notre quotidien surchargé, la part créative de notre personnalité s'efface peu à peu. Nous oublions de jouer, d'expérimenter, d'être dans le moment présent.
+      </p>
+      <p>
+        La musique — et notamment la création musicale collective — est l'un des plus puissants outils pour reconnecter avec soi-même. Pas besoin de talent ni de formation : il suffit d'oser.
+      </p>
+      <p>
+        Dans mes ateliers, des instruments accessibles à tous (percussions, objets sonores, voix) permettent à chacun de trouver <em>sa</em> musique et de libérer ce qui est enfoui.
+      </p>
+    </div>
+    <div class="why-cards">
+      <div class="why-card">
+        <div class="icon">🧘</div>
+        <h3>Lâcher-prise</h3>
+        <p>La musique court-circuite le mental analytique et libère des émotions bloquées.</p>
+      </div>
+      <div class="why-card">
+        <div class="icon">🔥</div>
+        <h3>Énergie créative</h3>
+        <p>Retrouver l'état de jeu enfantin pour raviver la flamme créative dans tous les domaines.</p>
+      </div>
+      <div class="why-card">
+        <div class="icon">🤝</div>
+        <h3>Lien & cohésion</h3>
+        <p>Créer ensemble renforce les liens et la confiance au sein des équipes.</p>
+      </div>
+      <div class="why-card">
+        <div class="icon">🌱</div>
+        <h3>Épanouissement</h3>
+        <p>Se sentir capable de créer quelque chose de beau — un ancrage profond de confiance en soi.</p>
+      </div>
+    </div>
+    <div class="why-image-wrapper">
+      <div class="why-image-container">
+        <img src="assets/instruments-collection.png" alt="Collection d'instruments de musique pour l'éveil musical" class="section-image" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFERINGS -->
+<section class="offerings-bg" id="offres">
+  <div class="offerings-inner">
+    <span class="section-label">Ce que je propose</span>
+    <h2>Des expériences musicales<br/>pour <em>chaque besoin</em></h2>
+    <div class="offerings-grid">
+      <div class="offer-card">
+        <div class="offer-emoji">🏢</div>
+        <h3>Atelier Team Building</h3>
+        <p>Une demi-journée ou journée complète pour votre équipe. Créez ensemble une composition musicale originale sans aucun prérequis. Puissant pour la cohésion et la communication.</p>
+        <span class="offer-tag">Entreprise</span>
+      </div>
+      <div class="offer-card">
+        <div class="offer-emoji">🎯</div>
+        <h3>Coaching Créatif Individuel</h3>
+        <p>Sessions personnalisées pour les dirigeants et managers qui souhaitent retrouver leur créativité, leur intuition et un nouveau souffle dans leur vie professionnelle.</p>
+        <span class="offer-tag">Individuel</span>
+      </div>
+      <div class="offer-card">
+        <div class="offer-emoji">🌊</div>
+        <h3>Stage de Ressourcement</h3>
+        <p>Pour les professionnels en burnout ou en transition. Un espace bienveillant pour se reconnecter à soi par la musique, le son et l'expression créative libre.</p>
+        <span class="offer-tag">Bien-être</span>
+      </div>
+      <div class="offer-card">
+        <div class="offer-emoji">👶</div>
+        <h3>Éveil Musical Enfants</h3>
+        <p>Ateliers d'éveil musical pour les 0-6 ans. Développement sensoriel, découverte des sons du monde, chansons à gestes et premiers instruments. Pour crèches et familles.</p>
+        <span class="offer-tag">Enfants 0-6 ans</span>
+      </div>
+      <div class="offer-card">
+        <div class="offer-emoji">🏫</div>
+        <h3>Formation Professionnels Petite Enfance</h3>
+        <p>Formation sur 4 jours pour les éducateurs, auxiliaires, enseignants. Acquérir les outils de l'éveil musical et artistique pour les intégrer au quotidien professionnel.</p>
+        <span class="offer-tag">Formation</span>
+      </div>
+      <div class="offer-card">
+        <div class="offer-emoji">✨</div>
+        <h3>Atelier Créativité Groupe</h3>
+        <p>Ouvert à tous, sans condition. Une exploration multi-sensorielle : son, mouvement, argile, dessin et voix. Pour se retrouver, s'exprimer et créer en communauté.</p>
+        <span class="offer-tag">Tout public</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="process-inner">
+    <span class="section-label">Comment ça se passe ?</span>
+    <h2>Une expérience<br/><em>en 4 temps</em></h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>On s'écoute</h3>
+        <p>Exploration des sons du monde, écoute intérieure, découverte des instruments accessibles à tous.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>On s'exprime</h3>
+        <p>Chacun trouve son geste musical : voix, corps, percussion, objet sonore. Sans jugement, en toute liberté.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>On crée ensemble</h3>
+        <p>Le groupe compose quelque chose d'unique. Une œuvre éphémère et collective, source de fierté partagée.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>On intègre</h3>
+        <p>Retour réflexif sur l'expérience. Outils et rituels à emporter dans sa vie quotidienne et professionnelle.</p>
+      </div>
+    </div>
+    <div class="process-image-container">
+      <img src="assets/atelier-espace.png" alt="Espace d'atelier musical avec instruments et tapis" class="section-image" />
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCES -->
+<section class="audiences-bg" id="public">
+  <div class="audiences-inner">
+    <span class="section-label">Pour qui ?</span>
+    <h2>Ces ateliers sont faits pour <em>vous</em></h2>
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="icon">💼</div>
+        <h3>Managers & Dirigeants</h3>
+        <p>Retrouvez l'intuition créative que les responsabilités ont étouffée. Prenez du recul et ouvrez de nouveaux horizons.</p>
+      </div>
+      <div class="audience-card">
+        <div class="icon">🔋</div>
+        <h3>Professionnels épuisés</h3>
+        <p>Offrez-vous un espace de décompression profond, loin des écrans et des performances. La musique répare.</p>
+      </div>
+      <div class="audience-card">
+        <div class="icon">🔍</div>
+        <h3>Adultes en quête de sens</h3>
+        <p>Vous cherchez à vous reconnecter à vous-même ? La création musicale est un chemin direct vers l'essentiel.</p>
+      </div>
+      <div class="audience-card">
+        <div class="icon">👥</div>
+        <h3>Équipes en entreprise</h3>
+        <p>Renforcez la cohésion, la communication et la confiance de vos équipes par une expérience musicale collective inoubliable.</p>
+      </div>
+      <div class="audience-card">
+        <div class="icon">🧒</div>
+        <h3>Enfants (0-6 ans)</h3>
+        <p>L'éveil musical nourrit le développement sensoriel, la créativité et l'ouverture au monde dès les premiers mois de vie.</p>
+      </div>
+      <div class="audience-card">
+        <div class="icon">🎓</div>
+        <h3>Éducateurs & Soignants</h3>
+        <p>Intégrez la musique à votre pratique professionnelle. Devenez porteur d'éveil artistique dans votre structure.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section>
+  <div class="testimonials-inner">
+    <span class="section-label">Ils ont vécu l'expérience</span>
+    <h2>Ce qu'ils en <em>disent</em></h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>« Je suis arrivée convaincue de ne pas avoir une once de musicalité. Je suis repartie avec la certitude que j'avais quelque chose à dire. Une révélation. »</p>
+        <div class="author">Sophie M.</div>
+        <div class="role">Directrice Marketing, 42 ans</div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>« Notre team building le plus mémorable en 10 ans de management. L'équipe en parle encore 6 mois après. La cohésion a vraiment changé. »</p>
+        <div class="author">Thomas L.</div>
+        <div class="role">DG, PME 80 personnes</div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>« J'étais en burnout sévère. La formation de Lydwine m'a redonné accès à une part de moi que je croyais perdue. La musique m'a littéralement sauvée. »</p>
+        <div class="author">Amandine R.</div>
+        <div class="role">Infirmière, 38 ans</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <h2>Prête à libérer votre créativité ?</h2>
+  <p>Première séance découverte offerte — pour sentir ce que ça fait avant de vous engager.</p>
+  <a href="#contact" class="btn-white">Réserver ma session découverte →</a>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <span class="section-label">Me contacter</span>
+    <h2>Parlons de votre <em>projet</em></h2>
+    <p style="color:#777; font-weight:300; margin-bottom:1rem;">Que ce soit pour vous, votre équipe ou vos enfants — je serai ravie d'échanger avec vous.</p>
+    <form class="contact-form">
+      <div class="form-row">
+        <input type="text" placeholder="Votre prénom" required />
+        <input type="email" placeholder="Votre email" required />
+      </div>
+      <select>
+        <option value="" disabled selected>Quel type d'atelier vous intéresse ?</option>
+        <option>Atelier Team Building (entreprise)</option>
+        <option>Coaching Créatif Individuel</option>
+        <option>Stage de Ressourcement</option>
+        <option>Éveil Musical Enfants</option>
+        <option>Formation Professionnels Petite Enfance</option>
+        <option>Atelier Créativité Groupe</option>
+        <option>Je ne sais pas encore</option>
+      </select>
+      <textarea placeholder="Parlez-moi de vous et de ce que vous cherchez..."></textarea>
+      <a href="mailto:contact@lydwine-coaching.fr" class="btn-primary" style="text-align:center; padding:1rem;">Envoyer ma demande ✉️</a>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <strong>Lydwine Coaching</strong> — Éveil Musical & Coaching Créatif · Tous droits réservés</p>
+</footer>
+
 </body>
 </html>
